@@ -1,13 +1,13 @@
 import connect, { sql } from "@databases/sqlite";
 
+// const db = connect("my-database.db");
+// let query = sql`SELECT * FROM users;`;
+// let res = await db.query(query);
+// console.log("hi: ", res);
+
 class Database {
   constructor() {
-    this.db = connect("./data.db");
-    this.db.query(sql`CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      age INTEGER NOT NULL
-    )`);
+    this.db = connect("my-database.db");
   }
   async fetchAllUsers() {
     try {
@@ -38,6 +38,11 @@ class Database {
 }
 
 const database = new Database();
+console.log(await database.fetchOneUser("Alice"));
+// console.log("---------------------------");
+console.log(await database.fetchAllUsers());
+// console.log(await database.createUser({ name: "Ffej", age: 39 }));
+console.log(await database.fetchOneUser("Tammie"));
 export default database;
 
 // export async function getUser(username) {

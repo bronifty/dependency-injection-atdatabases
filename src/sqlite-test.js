@@ -2,7 +2,7 @@ import connect, { sql } from "@databases/sqlite";
 
 class Database {
   constructor() {
-    this.db = connect("./data.db");
+    this.db = connect();
     this.db.query(sql`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
