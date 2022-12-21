@@ -1,5 +1,7 @@
 # Dependency Injection Exercise
 
+<img src="./di-diag.png">
+
 #### Usage
 
 - to run this, you can run either of the scripts in package.json. You don't need to install anything.
