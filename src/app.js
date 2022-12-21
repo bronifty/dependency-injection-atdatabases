@@ -18,19 +18,6 @@ export default function (database) {
   app.post("/users", async (req, res) => {
     const { name, age } = req.body;
     console.log("in the post route", name, age);
-    // res.send({ name, age });//
-    // await database.createUser({ name, age });
-    // let user = await database.fetchOneUser(name);
-    // res.send({ user });
-
-    // let testUser = await database.fetchOneUser(name);
-    // if (testUser) {
-    //   console.log("testUser", testUser);
-    //   res.send({ testUser });
-    // }
-    // console.log("no testUser");
-    // res.send("no testUser");
-
     try {
       const user = await database.fetchOneUser(name);
       if (user) {
