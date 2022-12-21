@@ -9,22 +9,22 @@ export default function (database) {
     res.send("Hello World!");
   });
 
-  // app.post('/users', async (req, res) => {
-  //   const { username, password } = req.body
+  app.post("/users", async (req, res) => {
+    const { username, password } = req.body;
 
-  //   try {
-  //     const user = await database.getUser(username)
-  //     if (user) {
-  //       res.status(400).send({ error: "username already taken" })
-  //       return
-  //     }
-  //     const userId = await database.createUser(username, password)
-  //     res.send({ userId })
-  //   } catch (error) {
-  //     res.sendStatus(500)
-  //     return
-  //   }
-  // })
+    try {
+      const user = await database.getUser(username);
+      if (user) {
+        res.status(400).send({ error: "username already taken" });
+        return;
+      }
+      const userId = await database.createUser(username, password);
+      res.send({ userId });
+    } catch (error) {
+      res.sendStatus(500);
+      return;
+    }
+  });
 
   return app;
 }

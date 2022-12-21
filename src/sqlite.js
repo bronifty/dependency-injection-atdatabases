@@ -9,7 +9,14 @@ class Database {
   constructor() {
     this.db = connect("my-database.db");
   }
-  async getUser(name) {
+  async fetchAllUsers() {
+    try {
+      return await this.db.query(sql`SELECT * FROM users;`);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+  async fetchUser(name) {
     try {
       return await this.db.query(
         sql`SELECT * FROM users where name = ${name};`
@@ -30,7 +37,9 @@ class Database {
 }
 
 const database = new Database();
-console.log("Database class object query: ", await database.query(query));
+console.log(await database.fetchUser("Alice"));
+console.log(await database.createUser({ name: "Ffej", age: 39 }));
+console.log(await database.fetchAllUsers());
 export default database;
 
 // export async function getUser(username) {
