@@ -7,4 +7,8 @@ yarn start
 ```
 
 - curl localhost:8080/
-- curl -X POST localhost:8080/users -b '{"name": "someone", "age": 123}'
+- curl -X POST -d '{"name": "abcdef", "age": 123}' localhost:8080/users
+
+curl -X POST -H "Content-Type: application/json" \
+ -d '{"name":"abcdefghi","age": 123}' \
+ http://localhost:8080/users
