@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/server",
     "start": "node src/server",
-    "db:test": "node src/sqlite-test"
+    "test": "node test/server-test"
   },
   "dependencies": {
     "@databases/sqlite": "^4.0.2",
