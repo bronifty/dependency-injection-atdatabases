@@ -5,21 +5,41 @@ export default function (database) {
 
   app.use(express.json());
 
-  app.get("/", (req, res) => {
-    res.send("Hello World!");
+  app.get("/", async (req, res) => {
+    try {
+      const users = await database.fetchAllUsers();
+      res.send({ users });
+    } catch (error) {
+      res.sendStatus(500);
+      return;
+    }
   });
 
   app.post("/users", async (req, res) => {
-    const { username, password } = req.body;
+    const { name, age } = req.body;
+    console.log("in the post route", name, age);
+    // res.send({ name, age });//
+    // await database.createUser({ name, age });
+    // let user = await database.fetchOneUser(name);
+    // res.send({ user });
+
+    // let testUser = await database.fetchOneUser(name);
+    // if (testUser) {
+    //   console.log("testUser", testUser);
+    //   res.send({ testUser });
+    // }
+    // console.log("no testUser");
+    // res.send("no testUser");
 
     try {
-      const user = await database.getUser(username);
+      const user = await database.fetchOneUser(name);
       if (user) {
-        res.status(400).send({ error: "username already taken" });
+        res.status(400).send({ error: "name already taken" });
         return;
       }
-      const userId = await database.createUser(username, password);
-      res.send({ userId });
+      await database.createUser({ name, age });
+      let newUser = await database.fetchOneUser(name);
+      res.send({ newUser });
     } catch (error) {
       res.sendStatus(500);
       return;

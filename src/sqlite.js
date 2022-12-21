@@ -1,7 +1,7 @@
 import connect, { sql } from "@databases/sqlite";
 
-const db = connect("my-database.db");
-let query = sql`SELECT * FROM users;`;
+// const db = connect("my-database.db");
+// let query = sql`SELECT * FROM users;`;
 // let res = await db.query(query);
 // console.log("hi: ", res);
 
@@ -16,11 +16,12 @@ class Database {
       console.log("Error: ", error);
     }
   }
-  async fetchUser(name) {
+  async fetchOneUser(name) {
     try {
-      return await this.db.query(
+      let res = await this.db.query(
         sql`SELECT * FROM users where name = ${name};`
       );
+      return res[0];
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -37,9 +38,11 @@ class Database {
 }
 
 const database = new Database();
-console.log(await database.fetchUser("Alice"));
-console.log(await database.createUser({ name: "Ffej", age: 39 }));
+console.log(await database.fetchOneUser("Alice"));
+// console.log("---------------------------");
 console.log(await database.fetchAllUsers());
+// console.log(await database.createUser({ name: "Ffej", age: 39 }));
+console.log(await database.fetchOneUser("Tammie"));
 export default database;
 
 // export async function getUser(username) {
